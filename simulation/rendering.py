@@ -16,12 +16,14 @@ class Window(pyglet.window.Window):
         self.batch.draw()
 
 
-def getLayer(layer):
+def get_layer(layer):
     return pyglet.graphics.OrderedGroup(layer)
+
 
 def run_app():
     # Run app
     pyglet.app.run()
+
 
 class Circle(object):
     def __init__(self, **kwargs):
@@ -35,6 +37,9 @@ class Circle(object):
         color       : color of circle\n
         """
 
+        # The actual object being rendered
+        self.shape = None
+
         # Configure the circle
         self.configure(**kwargs)
 
@@ -45,13 +50,13 @@ class Circle(object):
 
         try:
             # Create new shape object
-            self.shape = pyglet.shapes.Circle(self.properties['position'][0], self.properties['position'][1], radius=self.properties['radius'], batch=self.properties['batch'], group=getLayer(self.properties['layer']), color=self.properties['color'])
+            self.shape = pyglet.shapes.Circle(self.properties['position'][0], self.properties['position'][1], radius=self.properties['radius'], batch=self.properties['batch'], group=get_layer(self.properties['layer']), color=self.properties['color'])
         except Exception as e:
             # Error message
             print(f'ERROR: Could not create circle shape: {e}')
 
         # Set opacity
-        if self.properties['opacity']:
+        if 'opacity' in self.properties.keys():
             try:
                 self.shape.opacity = self.properties['opacity']
             except Exception as e:
