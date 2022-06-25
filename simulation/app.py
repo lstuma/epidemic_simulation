@@ -13,7 +13,7 @@ class App(object):
 
         # Register slow_fixed_update and fixed_update to be called each interval
         pyglet.clock.schedule_interval(self.slow_fixed_update, 0.25)
-        pyglet.clock.schedule_interval(self.fixed_update, 0.05)
+        pyglet.clock.schedule(self.fixed_update)
 
         # Run pyglet
         pyglet.app.run()
@@ -23,12 +23,14 @@ class App(object):
             slow_fixed_update gets called about every 0.25 seconds
         """
 
+        self.simulator.simulate(time_elapsed=time_elapsed)
+
     def fixed_update(self, time_elapsed):
         """
-            fixed_update gets called about every 0.05 seconds
+            fixed_update gets called about every frame
         """
 
-        self.simulator.simulate(time_elapsed=time_elapsed)
+        self.simulator.move_randomly(time_elapsed=time_elapsed)
 
 
 def main():
