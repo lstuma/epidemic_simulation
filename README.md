@@ -1,2 +1,3 @@
 # virus_simulation
-Just some gamy stuff right here
+## What
+Just a fun little "simulation".
